@@ -1,0 +1,7 @@
+data_destinations:
+  - raw_data: &raw_data_destination data/data_lake
+
+data_sources:
+  - name: tblard/allocine
+    source: https://huggingface.co/datasets
+    destination: *raw_data_destination
