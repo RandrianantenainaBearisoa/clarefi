@@ -1,5 +1,5 @@
 data_destinations:
-  - raw_data: &raw_data_destination data/data_lake
+  - raw_data: &raw_data_destination data/data_warehouse
 
 data_sources:
   - name: tblard/allocine
