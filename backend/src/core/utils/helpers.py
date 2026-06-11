@@ -1,7 +1,8 @@
 from datasets import load_dataset
 from pathlib import Path
 import yaml
-
+import random
+import string
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -31,6 +32,12 @@ def get_data_source_name():
     """
     return load_config_file("config/data_config.yaml")["data_sources"][0]["name"]
 
+def get_grid_search_config():
+    """
+    Return the custom config for the grid search in gridSearch_config.yaml
+    """
+    return load_config_file("config/gridSearch_config.yaml")
+
 def get_data_destination():
     """
     Return the destination folder for unprocessed dataset
@@ -48,3 +55,7 @@ def download_hf_dataset():
 
     dataset = load_dataset(data_source_name)
     dataset.save_to_disk(raw_train_data_destination)
+
+def generate_random_string(length:int = 10):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choices(characters, k=length))
