@@ -9,4 +9,7 @@ regressor: logisticregression
 param_grid:
       countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
       countvectorizer__min_df: '[5, 15, 35]'
+      logisticregression__C: '[1]'
+      logisticregression__l1_ratio: '[0]'
+      logisticregression__solver: "['liblinear', 'lbfgs']"
 dataset_proportion: 0.01 # between 0 and 1

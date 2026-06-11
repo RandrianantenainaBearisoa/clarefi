@@ -1,5 +1,5 @@
-- model: Mv75OYudrg
-  experiment_timestamp: 2026-06-11 17:09:02.247044
+- model: yEMa0R25gn
+  experiment_timestamp: 2026-06-11 17:20:49.246717
   pipeline:
     countvectorizer: CountVectorizer()
     logisticregression: LogisticRegression()
@@ -11,13 +11,19 @@
     param_grid:
       countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
       countvectorizer__min_df: '[5, 15, 35]'
+      logisticregression__C: '[1]'
+      logisticregression__l1_ratio: '[0]'
+      logisticregression__solver: '[''liblinear'', ''lbfgs'']'
     dataset_proportion: 0.01
     best_params:
       countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 1)
-    best_score: 0.8294444444444444
-- model: Hb3SvyH2P8
-  experiment_timestamp: 2026-06-11 17:02:49.437898
+      countvectorizer__ngram_range: (1, 2)
+      logisticregression__C: 1
+      logisticregression__l1_ratio: 0
+      logisticregression__solver: liblinear
+    best_score: 0.8305555555555555
+- model: eqffEpcTVH
+  experiment_timestamp: 2026-06-11 17:17:09.810792
   pipeline:
     countvectorizer: CountVectorizer()
     logisticregression: LogisticRegression()
@@ -29,7 +35,38 @@
     param_grid:
       countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
       countvectorizer__min_df: '[5, 15, 35]'
+      logisticregression__C: '[1]'
+      logisticregression__l1_ratio: '[0]'
+      logisticregression__solver: '[''liblinear'']'
+    dataset_proportion: 0.01
     best_params:
       countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 1)
-    best_score: 0.8294444444444444
+      countvectorizer__ngram_range: (1, 2)
+      logisticregression__C: 1
+      logisticregression__l1_ratio: 0
+      logisticregression__solver: liblinear
+    best_score: 0.8305555555555555
+- model: QUYpW70bVE
+  experiment_timestamp: 2026-06-11 17:15:50.323176
+  pipeline:
+    countvectorizer: CountVectorizer()
+    logisticregression: LogisticRegression()
+  info:
+    gridCV_args:
+      cv: 5
+      n_jobs: 4
+      verbose: 3
+    param_grid:
+      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
+      countvectorizer__min_df: '[5, 15, 35]'
+      logisticregression__C: '[1]'
+      logisticregression__l1_ratio: '[0]'
+      logisticregression__solver: '[''liblinear'']'
+    dataset_proportion: 0.01
+    best_params:
+      countvectorizer__min_df: 5
+      countvectorizer__ngram_range: (1, 2)
+      logisticregression__C: 1
+      logisticregression__l1_ratio: 0
+      logisticregression__solver: liblinear
+    best_score: 0.8305555555555555
