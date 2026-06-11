@@ -12,4 +12,4 @@ param_grid:
       logisticregression__C: '[1]'
       logisticregression__l1_ratio: '[0]'
       logisticregression__solver: "['liblinear', 'lbfgs']"
-dataset_proportion: 0.01 # between 0 and 1
+dataset_proportion: 0.1 # between 0 and 1
