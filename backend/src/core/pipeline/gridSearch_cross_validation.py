@@ -6,7 +6,7 @@ import datetime
 import traceback
 import yaml
 
-def store_experiment(gridCV, pipeline, param_grid):
+def store_experiment(gridCV, gridCV_args, pipeline, param_grid):
     params = {param: str(param_grid[param]) for param in param_grid}
     best_params = {param:gridCV.best_params_[param] if (type(gridCV.best_params_[param]).__name__ != "tuple") else str(gridCV.best_params_[param]) for param in gridCV.best_params_ }
     steps = dict(pipeline.steps)
@@ -17,6 +17,7 @@ def store_experiment(gridCV, pipeline, param_grid):
         "experiment_timestamp": datetime.datetime.now(),
         "pipeline": steps,
         "info": {
+            "gridCV_args": gridCV_args,
             "param_grid": params,
             "best_params": best_params,
             "best_score": float(gridCV.best_score_)
@@ -53,11 +54,11 @@ def run_gs_cross_validation():
         gridCV = GridSearchCV(
             estimator=pipeline,
             param_grid=param_grid,
-            cv=configurations["cv"],
-            n_jobs=configurations["n_jobs"],
-            verbose=configurations["verbose"]
+            cv=configurations["GridSearchCV"]["cv"],
+            n_jobs=configurations["GridSearchCV"]["n_jobs"],
+            verbose=configurations["GridSearchCV"]["verbose"]
         )
         gridCV.fit(X[:proportion], y[:proportion])
-        store_experiment(gridCV=gridCV, pipeline=pipeline, param_grid=param_grid)
+        store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid)
     except Exception:
         traceback.print_exc()

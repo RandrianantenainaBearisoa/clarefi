@@ -1,104 +1,17 @@
-- model: qbEpPJbPjd
-  experiment_timestamp: 2026-06-11 16:46:23.184611
+- model: Hb3SvyH2P8
+  experiment_timestamp: 2026-06-11 17:02:49.437898
   pipeline:
     countvectorizer: CountVectorizer()
     logisticregression: LogisticRegression()
   info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3), (1, 4)]'
-      countvectorizer__min_df: '[5, 6, 7, 8, 9]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9078888888888889
-- model: 4TDWfjR26n
-  experiment_timestamp: 2026-06-11 16:43:33.916317
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
+    gridCV_args:
+      cv: 5
+      n_jobs: 4
+      verbose: 3
     param_grid:
       countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 6, 7, 8, 9]'
+      countvectorizer__min_df: '[5, 15, 35]'
     best_params:
       countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9078888888888889
-- model: Q6KYhF0Wpk
-  experiment_timestamp: 2026-06-11 16:34:43.333812
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 6, 7, 8, 9]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9078888888888889
-- model: ThKbBCQ5vC
-  experiment_timestamp: 2026-06-11 16:31:57.160809
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 10, 20, 50]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9078888888888889
-- model: GYQL7p8xkZ
-  experiment_timestamp: 2026-06-11 16:29:26.878075
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3), (1, 4)]'
-      countvectorizer__min_df: '[1, 5, 20, 50]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9078888888888889
-- model: XpDyLjaWwp
-  experiment_timestamp: 2026-06-11 16:23:25.212960
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 20, 50]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9078888888888889
-- model: eML0X2HhHu
-  experiment_timestamp: 2026-06-11 16:21:38.762974
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 20, 50]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9023809523809524
-- model: JIPpOJgNHz
-  experiment_timestamp: 2026-06-11 16:19:11.321150
-  pipeline:
-    countvectorizer: CountVectorizer()
-    logisticregression: LogisticRegression()
-  info:
-    param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 20, 50]'
-    best_params:
-      countvectorizer__min_df: 5
-      countvectorizer__ngram_range: (1, 3)
-    best_score: 0.9023809523809524
+      countvectorizer__ngram_range: (1, 1)
+    best_score: 0.8294444444444444
