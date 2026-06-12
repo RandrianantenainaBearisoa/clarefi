@@ -1,3 +1,27 @@
+- model: ohv9h5Vdfe
+  experiment_timestamp: 2026-06-12 12:28:26.767218
+  pipeline:
+    countvectorizer: CountVectorizer()
+    logisticregression: LogisticRegression()
+  info:
+    gridCV_args:
+      cv: 5
+      n_jobs: 4
+      verbose: 3
+    param_grid:
+      countvectorizer__ngram_range: '[(1, 3)]'
+      countvectorizer__min_df: '[5]'
+      logisticregression__C: '[0.001, 1, 1000, 1e+40]'
+      logisticregression__l1_ratio: '[0, 1]'
+      logisticregression__solver: '[''liblinear'', ''lbfgs'']'
+    dataset_proportion: 1
+    best_params:
+      countvectorizer__min_df: 5
+      countvectorizer__ngram_range: (1, 3)
+      logisticregression__C: 1
+      logisticregression__l1_ratio: 0
+      logisticregression__solver: lbfgs
+    best_score: 0.9390333333333333
 - model: 2xpzDGsVrn
   experiment_timestamp: 2026-06-12 11:34:20.514310
   pipeline:

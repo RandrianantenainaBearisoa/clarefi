@@ -7,9 +7,9 @@ GridSearchCV:
 transformers: [countvectorizer]
 regressor: logisticregression
 param_grid:
-      countvectorizer__ngram_range: '[(1, 1), (1, 2), (1, 3)]'
-      countvectorizer__min_df: '[5, 15, 35]'
-      logisticregression__C: '[1]'
-      logisticregression__l1_ratio: '[0]'
+      countvectorizer__ngram_range: '[(1, 3)]'
+      countvectorizer__min_df: '[5]'
+      logisticregression__C: '[0.001, 1, 1000, 1e40]'
+      logisticregression__l1_ratio: '[0, 1]'
       logisticregression__solver: "['liblinear', 'lbfgs']"
 dataset_proportion: 1 # between 0 and 1
