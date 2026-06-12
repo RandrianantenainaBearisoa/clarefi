@@ -38,3 +38,8 @@ def get_train_data():
     dataset = train_validation_data_concat([train_data, validation_data])
 
     return dataset["review"], dataset["label"]
+
+def get_test_data():
+    raw_data_store = get_data_destination()
+    test_data = load_from_disk(raw_data_store)["test"]
+    return test_data["review"], test_data["label"]

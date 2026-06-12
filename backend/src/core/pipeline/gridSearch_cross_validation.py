@@ -1,12 +1,13 @@
 from src.core.utils.helpers import get_grid_search_config, generate_random_string
 from src.core.pipeline.cross_validation_pipeline import custom_pipeline
-from src.core.pipeline.data_pipeline import get_train_data
+from src.core.pipeline.data_pipeline import get_train_data, get_test_data
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report
 import datetime
 import traceback
 import yaml
 
-def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:dict, dataset_proportion:float):
+def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:dict, dataset_proportion:float, report:dict):
     params = {param: str(param_grid[param]) for param in param_grid}
     best_params = {param:gridCV.best_params_[param] if (type(gridCV.best_params_[param]).__name__ != "tuple") else str(gridCV.best_params_[param]) for param in gridCV.best_params_ }
     steps = dict(pipeline.steps)
@@ -21,7 +22,8 @@ def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:di
             "param_grid": params,
             "dataset_proportion": dataset_proportion,
             "best_params": best_params,
-            "best_score": float(gridCV.best_score_)
+            "best_score": float(gridCV.best_score_),
+            "report": report
         }
     }
 
@@ -44,6 +46,7 @@ def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:di
 def run_gs_cross_validation():
     configurations = get_grid_search_config()
     X, y = get_train_data()
+    X_test, y_test = get_test_data()
 
     proportion = round(len(X)*configurations["dataset_proportion"])
     if not (0 <= proportion <= len(X)):
@@ -60,6 +63,8 @@ def run_gs_cross_validation():
             verbose=configurations["GridSearchCV"]["verbose"]
         )
         gridCV.fit(X[:proportion], y[:proportion])
-        store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid, dataset_proportion=configurations["dataset_proportion"])
+        y_pred = gridCV.predict(X_test)
+        report = classification_report(y_test, y_pred, output_dict=True, target_names=['Negative', 'Positive'])
+        store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid, dataset_proportion=configurations["dataset_proportion"], report=report)
     except Exception:
         traceback.print_exc()
