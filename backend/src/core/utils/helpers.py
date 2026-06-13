@@ -86,3 +86,6 @@ def is_string_a_tuple(test_string):
         return isinstance(result, tuple)
     except (ValueError, SyntaxError):
         return False
+    
+def get_current_model():
+    return load_config_file("config/model_config.yaml")["model_on_prod"]
