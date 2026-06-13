@@ -4,6 +4,7 @@ import yaml
 import random
 import string
 import inquirer
+import ast
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -74,3 +75,14 @@ def download_hf_dataset():
 def generate_random_string(length:int = 10):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choices(characters, k=length))
+
+def check_file_presence(dir_path:str, filename:str):
+    file_path = Path(f"{dir_path}/{filename}")
+    return file_path.is_file()
+
+def is_string_a_tuple(test_string):
+    try:
+        result = ast.literal_eval(test_string)
+        return isinstance(result, tuple)
+    except (ValueError, SyntaxError):
+        return False

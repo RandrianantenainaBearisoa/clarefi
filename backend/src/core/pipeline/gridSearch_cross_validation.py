@@ -3,6 +3,7 @@ from src.core.pipeline.cross_validation_pipeline import custom_pipeline
 from src.core.pipeline.data_pipeline import get_train_data, get_test_data
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report
+from sklearn.pipeline import Pipeline
 import datetime
 import traceback
 import yaml
@@ -47,18 +48,20 @@ def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:di
         )
     return model_name
 
-def save_artefact(gridCV:GridSearchCV, model_name:str):
-    if ask_user_choices("Read the experiment result on the file experiment_result.yaml\nDo we save the artifact of the best estimator ?") == "Yes":
-        best_pipeline = gridCV.best_estimator_
-        artifact_path = get_artifact_store() + f"model_{model_name}.joblib"
-        joblib.dump(best_pipeline, artifact_path)
-        print(f"Model artifact saved at {artifact_path}")
+def store_artefact(best_pipeline:Pipeline, model_id:str):
+    artifact_path = get_artifact_store() + f"model_{model_id}.joblib"
+    joblib.dump(best_pipeline, artifact_path)
+    print(f"Model artifact saved at {artifact_path}")
 
-        if ask_user_choices("Do we use it for inference on prod ?") == "Yes":
-            set_model_on_prod(artifact_path)
-            print("This model is used for inference on prod.")
-        else:
-            print("Not used for inference on prod.")
+    if ask_user_choices("Do we use it for inference on prod ?") == "Yes":
+        set_model_on_prod(artifact_path)
+        print("This model is used for inference on prod.")
+    else:
+        print("Not used for inference on prod.")
+
+def save_artefact(best_pipeline:Pipeline, model_name:str):
+    if ask_user_choices("Read the experiment result on the file experiment_result.yaml\nDo we save the artifact of the best estimator ?") == "Yes":
+        store_artefact(best_pipeline=best_pipeline, model_id=model_name)
     else:
         print("Model artifact not saved")
 
@@ -101,7 +104,7 @@ def run_gs_cross_validation():
         report = classification_report(y_test, y_pred, output_dict=True, target_names=['Negative', 'Positive'])
         
         model_name = store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid, dataset_proportion=configurations["dataset_proportion"], report=report)
-        save_artefact(gridCV=gridCV, model_name=model_name)
+        save_artefact(best_pipeline=gridCV.best_estimator_, model_name=model_name)
 
     except Exception:
         traceback.print_exc()
