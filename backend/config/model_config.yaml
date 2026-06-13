@@ -1,0 +1,2 @@
+artifact_store: models/
+model_on_prod: models/model_WkERif3d6I.joblib

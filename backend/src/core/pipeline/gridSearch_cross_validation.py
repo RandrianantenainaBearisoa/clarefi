@@ -1,4 +1,4 @@
-from src.core.utils.helpers import get_grid_search_config, generate_random_string
+from src.core.utils.helpers import load_config_file, get_grid_search_config, generate_random_string, ask_user_choices, get_artifact_store
 from src.core.pipeline.cross_validation_pipeline import custom_pipeline
 from src.core.pipeline.data_pipeline import get_train_data, get_test_data
 from sklearn.model_selection import GridSearchCV
@@ -6,6 +6,7 @@ from sklearn.metrics import classification_report
 import datetime
 import traceback
 import yaml
+import joblib
 
 def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:dict, dataset_proportion:float, report:dict):
     params = {param: str(param_grid[param]) for param in param_grid}
@@ -13,8 +14,10 @@ def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:di
     steps = dict(pipeline.steps)
     steps = {key: str(steps[key]) for key in steps}
 
+    model_name = generate_random_string(10)
+
     data = {
-        "model": generate_random_string(10),
+        "model": model_name,
         "experiment_timestamp": datetime.datetime.now(),
         "pipeline": steps,
         "info": {
@@ -42,6 +45,35 @@ def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:di
             default_flow_style=False, 
             sort_keys=False
         )
+    return model_name
+
+def save_artefact(gridCV:GridSearchCV, model_name:str):
+    if ask_user_choices("Read the experiment result on the file experiment_result.yaml\nDo we save the artifact of the best estimator ?") == "Yes":
+        best_pipeline = gridCV.best_estimator_
+        artifact_path = get_artifact_store() + f"model_{model_name}.joblib"
+        joblib.dump(best_pipeline, artifact_path)
+        print(f"Model artifact saved at {artifact_path}")
+
+        if ask_user_choices("Do we use it for inference on prod ?") == "Yes":
+            set_model_on_prod(artifact_path)
+            print("This model is used for inference on prod.")
+        else:
+            print("Not used for inference on prod.")
+    else:
+        print("Model artifact not saved")
+
+def set_model_on_prod(model_name: str):
+    model_config_file_path = "config/model_config.yaml"
+    model_config = load_config_file(model_config_file_path)
+    model_config["model_on_prod"] = model_name
+    with open(model_config_file_path , "w") as file:
+        yaml.dump(
+            model_config,
+            file,
+            default_flow_style=False, 
+            sort_keys=False
+        )
+    print(f"Model {model_name} is the new model on prod.")
 
 def run_gs_cross_validation():
     configurations = get_grid_search_config()
@@ -55,6 +87,7 @@ def run_gs_cross_validation():
     try:
         pipeline = custom_pipeline(configurations["transformers"], configurations["regressor"])
         param_grid = {param: eval(configurations["param_grid"][param]) for param in configurations["param_grid"]}
+        
         gridCV = GridSearchCV(
             estimator=pipeline,
             param_grid=param_grid,
@@ -63,8 +96,12 @@ def run_gs_cross_validation():
             verbose=configurations["GridSearchCV"]["verbose"]
         )
         gridCV.fit(X[:proportion], y[:proportion])
+
         y_pred = gridCV.predict(X_test)
         report = classification_report(y_test, y_pred, output_dict=True, target_names=['Negative', 'Positive'])
-        store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid, dataset_proportion=configurations["dataset_proportion"], report=report)
+        
+        model_name = store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid, dataset_proportion=configurations["dataset_proportion"], report=report)
+        save_artefact(gridCV=gridCV, model_name=model_name)
+
     except Exception:
         traceback.print_exc()

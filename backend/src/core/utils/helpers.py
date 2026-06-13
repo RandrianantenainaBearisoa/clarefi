@@ -3,6 +3,7 @@ from pathlib import Path
 import yaml
 import random
 import string
+import inquirer
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -45,6 +46,20 @@ def get_data_destination():
         str: relative path to the destination folder
     """
     return load_config_file("config/data_config.yaml")["data_destinations"][0]["raw_data"]
+
+def get_artifact_store():
+    return load_config_file("config/model_config.yaml")["artifact_store"]
+
+def ask_user_choices(message:str, choices:list= ["Yes", "No"]):
+    questions = [
+        inquirer.List(
+            'choice',
+            message=message,
+            choices=choices,
+        ),
+    ]
+    answers = inquirer.prompt(questions)
+    return answers['choice']
 
 def download_hf_dataset():
     """
