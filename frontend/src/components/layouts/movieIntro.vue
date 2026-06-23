@@ -1,34 +1,29 @@
 <script setup lang="ts">
 import { rateLayouts } from '.';
+import type Movie from '@/static/interfaces/movieData';
+
+interface Props {
+  movie: Movie
+}
+const prop = defineProps<Props>()
 </script>
 
 <template>
     <PrimevueScrollPanel style="width: 100%; height: 400px">
-        <div class="intrduction-wrapper">
-            <h1 class="movie-title">Movie Title </h1>
+        <div class="introduction-wrapper">
+            <h1 class="movie-title">{{ prop.movie.Title }}</h1>
             <div class="movie-plot">
-                [Synopsys]Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit magni, molestias vitae earum
-                cupiditate reiciendis commodi neque iste explicabo. Illum laudantium ratione magnam accusantium error
-                eligendi provident deleniti libero labore?
-                [Synopsys]Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit magni, molestias vitae earum
-                cupiditate reiciendis commodi neque iste explicabo. Illum laudantium ratione magnam accusantium error
-                eligendi provident deleniti libero labore?
-                [Synopsys]Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit magni, molestias vitae earum
-                cupiditate reiciendis commodi neque iste explicabo. Illum laudantium ratione magnam accusantium error
-                eligendi provident deleniti libero labore?
-                [Synopsys]Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit magni, molestias vitae earum
-                cupiditate reiciendis commodi neque iste explicabo. Illum laudantium ratione magnam accusantium error
-                eligendi provident deleniti libero labore?
+                {{ prop.movie.Plot }}
             </div>
             <dl>
                 <dt>Genre</dt>
-                <dd>Action, Drame</dd>
+                <dd>{{ prop.movie.Genre }}</dd>
                 <dt>Réalisateur</dt>
-                <dd>James Wan</dd>
+                <dd>{{ prop.movie.Director }}</dd>
                 <dt>Scénariste</dt>
-                <dd>Jean-Claude Van Damme</dd>
+                <dd>{{ prop.movie.Writer }}</dd>
                 <dt>Acteur(s)</dt>
-                <dd>Jean-Claude Van Damme, Bruce Lee</dd>
+                <dd>{{ prop.movie.Actors }}</dd>
             </dl>
             <rate-layouts />
         </div>
@@ -36,7 +31,7 @@ import { rateLayouts } from '.';
 </template>
 
 <style scoped>
-.intrduction-wrapper {
+.introduction-wrapper {
     padding: 10px;
 
     .movie-title {

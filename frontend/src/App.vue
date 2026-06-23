@@ -9,5 +9,6 @@
 <style>
 body {
   font-family: 'Saira Stencil Variable', system-ui;
+  box-sizing: border-box;
 }
 </style>

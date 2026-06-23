@@ -7,7 +7,7 @@ import ScrollPanel from 'primevue/scrollpanel';
 import Tooltip from 'primevue/tooltip';
 import Textarea from 'primevue/textarea';
 import FloatLabel from 'primevue/floatlabel';
-
+import Carousel from 'primevue/carousel';
 
 export default function setupPrimevue(app: any){
     app.use(PrimeVue, {
@@ -20,6 +20,7 @@ export default function setupPrimevue(app: any){
     app.component("PrimevueScrollPanel", ScrollPanel)
     app.component("PrimevueFloatLabel", FloatLabel)
     app.component("PrimevueTextarea", Textarea)
+    app.component("PrimevueCarousel", Carousel)
 
     app.directive('tooltip', Tooltip);
 }

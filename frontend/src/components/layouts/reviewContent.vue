@@ -1,23 +1,40 @@
 <template>
     <div class="review-content-wrapper">
-        <!-- nom, Date, Commentaire, Positive/negative -->
         <dl>
             <dt class="review-info">
-                Anonymiah (date)
-                <div class="predicted-class positive" v-tooltip.left="{ value: 'Predicted as Positive Review', autoHide: false }">
-                    <!-- <i class="pi pi-minus-circle"></i> -->
-                    <i class="pi pi-plus-circle"></i>
+                {{ prop.review.username }} ({{ prop.review.date }})
+                <div class="predicted-class positive" :class="{ negative: prop.review.label==0 }" v-tooltip.left="{ value: 'Predicted as Positive Review', autoHide: false }">
+                    <template v-if="prop.review.label==0">
+                        <i class="pi pi-minus-circle"></i>
+                    </template>
+                    <template v-else>
+                        <i class="pi pi-plus-circle"></i>
+                    </template>
                 </div>
             </dt>
             <dd>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, excepturi vel eaque temporibus
-                incidunt laborum repellat autem veniam iure quisquam tempora saepe quae quos atque vitae eos labore!
-                Velit, consectetur!
+                {{ prop.review.text }}
             </dd>
         </dl>
         <hr>
     </div>
 </template>
+
+<script lang="ts" setup>
+interface Review {
+    username: string
+    date: string
+    text: string
+    label: number
+    sentiment: string
+}
+
+interface Props {
+    review: Review
+}
+
+const prop = defineProps<Props>()
+</script>
 
 <style scoped>
 .review-content-wrapper {

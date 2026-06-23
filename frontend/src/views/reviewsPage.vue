@@ -20,8 +20,11 @@ import { movieLayout, reviewLayout } from '@/components/layouts';
     justify-content: space-between;
 
     .movie-container, .reviews-container {
-        border: 1px solid black;
         width: 49%;
+    }
+
+    .reviews-container {
+        border: 1px solid black;
     }
 }
 </style>
