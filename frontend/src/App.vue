@@ -1,7 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { loadingPage } from './views';
+import { useLoading } from './stores/useLoader';
+
+const loader= useLoading()
+</script>
 
 <template>
-  <RouterView />
+  <loadingPage v-if="loader.isLoading.value" />
+  <RouterView v-else />
 </template>
 
 <style scoped></style>
