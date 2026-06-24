@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { movieLayout, reviewLayout } from '@/components/layouts';
+import { movieLayout, reviewLayout, bodyLayout } from '@/components/layouts';
 </script>
 
 <template>
-    <div class="content-wrapper">
-        <div class="movie-container">
-            <movieLayout />
-        </div>
+    <body-layout>
+        <div class="content-wrapper">
+            <div class="movie-container">
+                <movieLayout />
+            </div>
 
-        <div class="reviews-container">
-            <reviewLayout />
+            <div class="reviews-container">
+                <reviewLayout />
+            </div>
         </div>
-    </div>
+    </body-layout>
 </template>
 
 <style scoped>
@@ -19,12 +21,9 @@ import { movieLayout, reviewLayout } from '@/components/layouts';
     display: flex;
     justify-content: space-between;
 
-    .movie-container, .reviews-container {
-        width: 49%;
-    }
-
+    .movie-container,
     .reviews-container {
-        border: 1px solid black;
+        width: 49%;
     }
 }
 </style>
