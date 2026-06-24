@@ -51,7 +51,7 @@ const add_review = async () => {
             if (prediction) {
                 const label = Number(Array.from(prediction)[0]);
                 const sentiment = label ? "positive" : "negative"
-                const new_review = { "username": username, "date": date_now ?? "1970-01-01", "text": String(comment.value), "label": label, "sentiment": sentiment };
+                const new_review = { "username": username, "date": date_now ?? "1970-01-01", "text": String(comment.value), "label": label, "sentiment": sentiment, "added":true };
                 reviews.add_review(new_review, current_movie.index.value)
                 comment.value = ""
             }

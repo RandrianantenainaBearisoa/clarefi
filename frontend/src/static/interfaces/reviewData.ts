@@ -4,4 +4,5 @@ export default interface Review {
     text: string
     label: number
     sentiment: string
+    added?: boolean
 }

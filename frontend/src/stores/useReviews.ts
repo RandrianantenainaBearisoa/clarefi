@@ -1,5 +1,6 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type Review from '@/static/interfaces/reviewData'
+import { useCurrentMovie } from './currentMovie'
 
 const list = ref([
   // 1. Guardians of the Galaxy Vol. 2
@@ -75,7 +76,16 @@ export const useReviews = () => {
         list,
         add_review : (new_review: Review, movie_index: number) => {
             list.value[movie_index]?.unshift(new_review)
-        }
-
+        },
+        get_reviews_numbers: computed (() => {
+            const currentMovie = useCurrentMovie()
+            const len = list.value[currentMovie.index.value]?.length ?? 0
+            const pos = list.value[currentMovie.index.value]?.filter((review) => review["label"] == 1).length ?? 0
+            const neg = len - pos
+            return {
+                pos: pos,
+                neg: neg
+            }
+        })
     }
 }
