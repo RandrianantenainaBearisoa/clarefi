@@ -9,7 +9,7 @@
         <slot />
     </main>
     <footer>
-        <p>&copy; 2026 Clarefi. All rights reserved.</p>
+        <p>&copy; 2026 Clarefi. Tous droits réservés.</p>
     </footer>
 </template>
 

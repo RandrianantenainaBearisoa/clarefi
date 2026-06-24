@@ -10,7 +10,7 @@ const currentMovie = useCurrentMovie()
 <template>
     <div class="reviews-content-wrapper">
         <h1 class="reviews-header">
-            Reviews
+            Avis
         </h1>
         <div class="reviews-container">
             <PrimevueScrollPanel style="width: 100%; height: 100%">

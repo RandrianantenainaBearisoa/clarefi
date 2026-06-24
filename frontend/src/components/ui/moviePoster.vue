@@ -1,6 +1,6 @@
 <template>
     <div class="img-container">
-        <img :src="prop.poster_url" onerror="this.onerror=null; this.src='./assets/imgs/placeholder.png';" alt="Movie Poster">
+        <img :src="prop.poster_url" onerror="this.onerror=null; this.src='./assets/imgs/placeholder.png';" alt="Affiche de film">
     </div>
 </template>
 
