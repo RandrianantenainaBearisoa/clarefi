@@ -21,13 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-interface Review {
-    username: string
-    date: string
-    text: string
-    label: number
-    sentiment: string
-}
+import type Review from '@/static/interfaces/reviewData';
 
 interface Props {
     review: Review
