@@ -11,8 +11,11 @@
 <script setup lang="ts">
 import { useReviews } from '@/stores/useReviews';
 import { useCurrentMovie } from '@/stores/currentMovie';
-import { ref } from 'vue';
+import { ref, onMounted, shallowRef } from 'vue';
 import { predict } from '@/static/api/apis';
+import { useLoading } from '@/stores/useLoader';
+
+import { Inference } from '@/inference/inference';
 
 const reviews = useReviews()
 const current_movie = useCurrentMovie()
@@ -43,23 +46,39 @@ const make_username = () => {
     return f_name + " " + f_eek + getRandomInt(1, 10000)
 }
 
+const store_review = (new_comment: string, label: number) => {
+    const username = make_username();
+    const date_now = new Date().toISOString().split('T')[0];
+    const sentiment = label ? "positive" : "negative"
+    const new_review = { "username": username, "date": date_now ?? "1970-01-01", "text": String(new_comment), "label": label, "sentiment": sentiment, "added": true };
+    reviews.add_review(new_review, current_movie.index.value)
+    comment.value = ""
+}
+
 const add_review = async () => {
     if (comment.value.length > 0) {
-        const username = make_username();
-        const date_now = new Date().toISOString().split('T')[0];
-        predict(String(comment.value)).then((prediction: any) => {
-            if (prediction) {
-                const label = Number(Array.from(prediction)[0]);
-                const sentiment = label ? "positive" : "negative"
-                const new_review = { "username": username, "date": date_now ?? "1970-01-01", "text": String(comment.value), "label": label, "sentiment": sentiment, "added":true };
-                reviews.add_review(new_review, current_movie.index.value)
-                comment.value = ""
-            }
-        });
+        const prediction = await predict_local()
+        store_review(comment.value, prediction ?? 2)
     }
 }
 
+const loader = useLoading()
+const inference_service = shallowRef<Inference | null>(null);
 
+onMounted(async () => {
+    try {
+        inference_service.value = await Inference.initialize()
+    } catch (err) {
+        console.error(err)
+    } finally {
+        loader.stop_loading()
+    }
+})
+
+const predict_local = async () => {
+    const prediction = await inference_service.value?.predict(String(comment.value))
+    return prediction
+}
 </script>
 
 <style scoped>

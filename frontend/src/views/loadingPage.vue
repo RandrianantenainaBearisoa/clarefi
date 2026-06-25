@@ -1,6 +1,6 @@
 <template>
     <div>
-        Chargement ...
+        Chargement...
         <span class="loader"></span>
     </div>
 </template>
@@ -15,8 +15,8 @@ div {
     position: relative;
 
     .loader {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         position: absolute;
         border-radius: 50%;
         border-style: dotted dashed solid;

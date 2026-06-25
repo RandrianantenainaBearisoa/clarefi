@@ -7,8 +7,12 @@ const loader= useLoading()
 </script>
 
 <template>
-  <loadingPage v-if="loader.isLoading.value" />
-  <RouterView v-else />
+  <div>
+    <loadingPage v-if="loader.isLoading.value" />
+    <div v-show="!loader.isLoading.value" >
+      <RouterView/>
+    </div>
+  </div>
 </template>
 
 <style scoped></style>

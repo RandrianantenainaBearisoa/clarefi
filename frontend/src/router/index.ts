@@ -10,15 +10,4 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  const loader = useLoading();
-  loader.start_loading();
-  next();
-});
-
-router.afterEach(() => {
-  const loader = useLoading();
-  loader.stop_loading();
-});
-
 export default router
