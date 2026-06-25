@@ -12,7 +12,6 @@
 import { useReviews } from '@/stores/useReviews';
 import { useCurrentMovie } from '@/stores/currentMovie';
 import { ref, onMounted, shallowRef } from 'vue';
-import { predict } from '@/static/api/apis';
 import { useLoading } from '@/stores/useLoader';
 
 import { Inference } from '@/inference/inference';
