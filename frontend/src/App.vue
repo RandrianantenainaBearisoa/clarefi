@@ -2,20 +2,26 @@
 import { onMounted, ref } from 'vue';
 import { loadingPage } from './views';
 import { useLoading } from './stores/useLoader';
+import { demoSpecification } from './components/layouts';
 
-const loader= useLoading()
+const loader = useLoading()
 </script>
 
 <template>
-  <div>
+  <div class="global-container">
     <loadingPage v-if="loader.isLoading.value" />
-    <div v-show="!loader.isLoading.value" >
-      <RouterView/>
+    <div v-show="!loader.isLoading.value">
+      <RouterView />
     </div>
+    <demoSpecification />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.global-container {
+  position: relative;
+}
+</style>
 
 <style>
 body {

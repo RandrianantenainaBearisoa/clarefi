@@ -5,6 +5,7 @@ import reviewLayout from "./reviewLayout.vue"
 import reviewContent from "./reviewContent.vue"
 import movieLayout from "./movieLayout.vue"
 import bodyLayout from "./bodyLayout.vue"
+import demoSpecification from "./demoSpecification.vue"
 
 export {
     movieCard,
@@ -13,5 +14,6 @@ export {
     reviewLayout,
     reviewContent,
     movieLayout,
-    bodyLayout
+    bodyLayout,
+    demoSpecification
 }
