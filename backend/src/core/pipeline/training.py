@@ -18,7 +18,7 @@ def get_model_config(model_id:str):
     except ValueError:
         return {}
 
-def refit_model(model_id:str):
+def refit_model(model_id:str, forProd:bool = True):
     artefact_store = get_artifact_store()
     artefact_name = f"model_{model_id}.joblib"
 
@@ -42,4 +42,4 @@ def refit_model(model_id:str):
         pipeline.fit(X=X, y=y)
         
         print("Training done")
-        store_artefact(best_pipeline=pipeline, model_id=model_id)
+        store_artefact(best_pipeline=pipeline, model_id=model_id, forProd=forProd)

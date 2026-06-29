@@ -48,16 +48,18 @@ def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:di
         )
     return model_name
 
-def store_artefact(best_pipeline:Pipeline, model_id:str):
+def store_artefact(best_pipeline:Pipeline, model_id:str, forProd:bool = True):
     artifact_path = get_artifact_store() + f"model_{model_id}.joblib"
     joblib.dump(best_pipeline, artifact_path)
     print(f"Model artifact saved at {artifact_path}")
-
-    if ask_user_choices("Do we use it for inference on prod ?") == "Yes":
+    if forProd:
         set_model_on_prod(artifact_path)
-        print("This model is used for inference on prod.")
     else:
-        print("Not used for inference on prod.")
+        if ask_user_choices("Do we use it for inference on prod ?") == "Yes":
+            set_model_on_prod(artifact_path)
+            print("This model is used for inference on prod.")
+        else:
+            print("Not used for inference on prod.")
 
 def save_artefact(best_pipeline:Pipeline, model_name:str):
     if ask_user_choices("Read the experiment result on the file experiment_result.yaml\nDo we save the artifact of the best estimator ?") == "Yes":
