@@ -2,9 +2,6 @@ name: Deploy full app
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   Image-making:
