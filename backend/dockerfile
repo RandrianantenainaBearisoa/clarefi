@@ -10,10 +10,7 @@ RUN uv sync --frozen --no-cache
 
 COPY . .
 
-RUN source .venv/bin/activate
-RUN python launch_data_pipeline.py
-RUN python train_prod_model.py
-RUN python create_app.py
+RUN . .venv/bin/activate && python launch_data_pipeline.py && python train_prod_model.py && python create_app.py
 
 # stage 2 : copy all inference files/directories in to make a new prod image
 FROM python:3.12.3-slim as deployment-stage
