@@ -5,19 +5,19 @@ on:
 
 jobs:
   Image-making:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v4
-      with:
-        username: ${{ vars.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Docker build and push Images
-      run: |
-        echo "Building images..."
-        docker compose build
-        echo "Pushing images..."
-        docker compose push
+      - name: Docker build and push Images
+        run: |
+          echo "Building images..."
+          docker compose build
+          echo "Pushing images..."
+          docker compose push
