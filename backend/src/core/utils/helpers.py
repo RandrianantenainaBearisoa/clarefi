@@ -87,5 +87,11 @@ def is_string_a_tuple(test_string):
     except (ValueError, SyntaxError):
         return False
     
-def get_current_model():
-    return load_config_file("config/model_config.yaml")["model_on_prod"]
+def extract_model_id(model_path: str):
+    return model_path.replace("models/joblibs/model_", "").replace(".joblib", "")
+
+def get_current_model(idOnly: bool = False):
+    current_model_path = load_config_file("config/model_config.yaml")["model_on_prod"]
+    if idOnly:
+        return extract_model_id(current_model_path)
+    return current_model_path
