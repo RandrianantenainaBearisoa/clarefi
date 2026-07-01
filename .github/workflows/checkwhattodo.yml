@@ -24,7 +24,7 @@ jobs:
           # files_ignore: backend/
 
       # updated : frontend only
-      - name: Run step if any file(s) in the frontend folder change
+      - name: Run step if any file(s) in ONLY the frontend folder change
         if: steps.changed-files-frontend.outputs.any_changed == 'true' && steps.changed-files-backend.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-frontend.outputs.all_changed_files }}
@@ -33,7 +33,7 @@ jobs:
           echo "List all the files that have changed: $ALL_CHANGED_FILES"
       
       # updated : backend only
-      - name: Run step if any file(s) in the backend folder change
+      - name: Run step if any file(s) in ONLY the backend folder change
         if: steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-backend.outputs.all_changed_files }}
