@@ -1,0 +1,14 @@
+name: Check git config
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  Display-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: display configs
+        run: |
+          git config --list
