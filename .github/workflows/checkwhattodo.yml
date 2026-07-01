@@ -23,18 +23,26 @@ jobs:
           files: backend/**
           # files_ignore: backend/
 
+      # updated : frontend only
       - name: Run step if any file(s) in the frontend folder change
-        if: steps.changed-files-frontend.outputs.any_changed == 'true'
+        if: steps.changed-files-frontend.outputs.any_changed == 'true' && steps.changed-files-backend.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-frontend.outputs.all_changed_files }}
         run: |
           echo "One or more files in the frontend folder has changed."
           echo "List all the files that have changed: $ALL_CHANGED_FILES"
       
+      # updated : backend only
       - name: Run step if any file(s) in the backend folder change
-        if: steps.changed-files-backend.outputs.any_changed == 'true'
+        if: steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-backend.outputs.all_changed_files }}
         run: |
           echo "One or more files in the backend folder has changed."
           echo "List all the files that have changed: $ALL_CHANGED_FILES"
+      
+      # updated : both
+      - name: Run step if any file(s) in the backend AND frontend folder change
+        if: steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'true'
+        run: |
+          echo "Both frontend and backend updated."
