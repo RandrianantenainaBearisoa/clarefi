@@ -14,7 +14,8 @@ jobs:
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
           files: frontend/**
-          # files_ignore: frontend/static.js
+          files_ignore: |
+            frontend/README.md
       
       - name: Get changed files in the backend folder
         id: changed-files-backend
