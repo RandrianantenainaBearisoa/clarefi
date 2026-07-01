@@ -7,8 +7,7 @@ jobs:
   Get-Commit-message:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      
       - name: Print-commit-message
-        run: |
-          # Fetches the subject line of the last commit
-          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-          echo "commit_msg=$COMMIT_MSG" >> $GITHUB_OUTPUT
+        run: echo "${{ github.event.head_commit.message }}"
