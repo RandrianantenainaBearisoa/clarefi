@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print-commit-message
-        run: echo "${{ github.event.head_commit.message }}"
+        run: echo "${{ github.event.head_commit.message || github.event.commits[0].message || github.event.pull_request.title }}"
