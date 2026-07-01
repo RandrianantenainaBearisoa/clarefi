@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "Updating Frontend image ..."
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-          python update_version.py --commit="$COMMIT_MSG" --part="frontend"
+          python update_versions.py --commit="$COMMIT_MSG" --part="frontend"
           docker compose build frontend --push
 
       # updated : backend only
@@ -56,7 +56,7 @@ jobs:
         run: |
           echo "Updating Backend image ..."
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-          python update_version.py --commit="$COMMIT_MSG" --part="backend"
+          python update_versions.py --commit="$COMMIT_MSG" --part="backend"
           docker compose build backend --push
 
       # updated : both
@@ -65,7 +65,7 @@ jobs:
         run: |
           echo "Updating Backend && Frontend images ..."
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-          python update_version.py --commit="$COMMIT_MSG"
+          python update_versions.py --commit="$COMMIT_MSG"
           docker compose build --push
   
   # Deploy-on-server:
