@@ -1,0 +1,11 @@
+name: Get commit message
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Get-Commit-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print-commit-message
+        run: echo ${{ github.event.head_commit.message }}
