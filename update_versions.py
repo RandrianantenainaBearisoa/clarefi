@@ -1,4 +1,5 @@
 import argparse
+import traceback
 import yaml
 
 parser = argparse.ArgumentParser(
@@ -18,17 +19,21 @@ try:
 except FileNotFoundError:
     existing_data = []
 
-app_version = (existing_data["services"]["backend"]["build"]["tags"][0]).partition(":")[2]
-app_tag = existing_data["services"]["backend"]["build"]["tags"][0]
-version_table = [int(n) for n in app_version.split(".")]
-if "feat" in commit_type or "test" in commit_type or "build" in commit_type:
-    version_table[1] += 1
-else:
-    version_table[2] += 1
+try:
+    app_version = (existing_data["services"]["backend"]["build"]["tags"][0]).partition(":")[2]
+    app_tag = existing_data["services"]["backend"]["build"]["tags"][0]
+    version_table = [int(n) for n in app_version.split(".")]
+    if "feat" in commit_type or "test" in commit_type or "build" in commit_type:
+        version_table[1] += 1
+    else:
+        version_table[2] += 1
 
-new_version = ".".join([str(n) for n in version_table])
-new_app_tag = app_tag.replace(app_version, new_version)
-existing_data["services"]["backend"]["build"]["tags"] = [new_app_tag]
+    new_version = ".".join([str(n) for n in version_table])
+    new_app_tag = app_tag.replace(app_version, new_version)
+    existing_data["services"]["backend"]["build"]["tags"] = [new_app_tag]
 
-with open(file_path, "w") as file:
-    yaml.dump(existing_data, file, default_flow_style=False, sort_keys=False)
+    with open(file_path, "w") as file:
+        yaml.dump(existing_data, file, default_flow_style=False, sort_keys=False)
+except Exception:
+    print("Error")
+    traceback.print_exc()

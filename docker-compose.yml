@@ -3,22 +3,21 @@ services:
     build:
       context: ./backend
       tags:
-        - bearisoa/clarefi-backend:1.0.2
+      - bearisoa/clarefi-backend:1.0.2
     image: bearisoa/clarefi-backend:latest
     container_name: backend
     expose:
-      - "8000"
+    - '8000'
     restart: always
-
   frontend:
     build:
       context: ./frontend
       tags:
-        - bearisoa/clarefi-frontend:1.0.2
+      - bearisoa/clarefi-frontend:1.0.2
       args:
-        - VITE_API_URL=/api
+      - VITE_API_URL=/api
     image: bearisoa/clarefi-frontend:latest
     container_name: frontend
     ports:
-      - "80:80"
+    - 80:80
     restart: always
