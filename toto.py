@@ -5,4 +5,4 @@ parser.add_argument("--commit", type=str, default="fix", help="the type of actio
 args = parser.parse_args()
 
 commit_type = args.commit
-print(commit_type)
+print("commit type : ",commit_type)
