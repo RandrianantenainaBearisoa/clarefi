@@ -44,6 +44,8 @@ jobs:
           ALL_CHANGED_FILES: ${{ steps.changed-files-frontend.outputs.all_changed_files }}
         run: |
           echo "Updating Frontend image ..."
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          python update_version.py --commit="$COMMIT_MSG" --part="frontend"
           docker compose build frontend --push
 
       # updated : backend only
@@ -53,6 +55,8 @@ jobs:
           ALL_CHANGED_FILES: ${{ steps.changed-files-backend.outputs.all_changed_files }}
         run: |
           echo "Updating Backend image ..."
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          python update_version.py --commit="$COMMIT_MSG" --part="backend"
           docker compose build backend --push
 
       # updated : both
@@ -60,6 +64,8 @@ jobs:
         if: steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'true'
         run: |
           echo "Updating Backend && Frontend images ..."
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          python update_version.py --commit="$COMMIT_MSG"
           docker compose build --push
   
   # Deploy-on-server:
