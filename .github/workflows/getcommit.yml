@@ -12,5 +12,6 @@ jobs:
       - name: Print-commit-message
         run: |
           # Fetches the subject line of the last commit
-          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-          echo $COMMIT_MSG
+          # COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          # echo $COMMIT_MSG
+          python toto.py
