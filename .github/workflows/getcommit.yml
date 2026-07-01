@@ -13,4 +13,4 @@ jobs:
         run: |
           # Fetches the subject line of the last commit
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
-          echo "commit_msg=$COMMIT_MSG" >> $GITHUB_OUTPUT
+          echo $COMMIT_MSG
