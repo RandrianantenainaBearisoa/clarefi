@@ -39,15 +39,8 @@ parser.add_argument(
     "--commit", type=str, default="fix", help="the type of action in the commit message"
 )
 
-class Part(Enum):
-    FRONTEND = "frontend"
-    BACKEND = "backend"
-
-    def __str__(self):
-        return self.value
-
 parser.add_argument(
-    "--part", type=str, default="", help="the part of the compose that is updated: 'frontend' or 'backend' , let empty if both", choices=list(Part)
+    "--part", type=str, default="", help="the part of the compose that is updated: 'frontend' or 'backend' , let empty if both", choices=["frontend", "backend"]
 )
 args = parser.parse_args()
 
