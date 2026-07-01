@@ -21,7 +21,13 @@ jobs:
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
           files: backend/**
-          # files_ignore: backend/
+          files_ignore: | 
+            backend/config/data_config.yaml
+            backend/config/experiment_result.yaml
+            backend/config/gridSearch_config.yaml
+            backend/data/**
+            backend/explorations/**
+            backend/README.md
 
       # updated : frontend only
       - name: Run step if any file(s) in ONLY the frontend folder change
