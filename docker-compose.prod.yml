@@ -3,7 +3,7 @@ services:
     image: bearisoa/clarefi-backend:latest
     networks:
       - default
-    container_name: backend
+    container_name: clarefi-backend
     expose:
       - "8000"
     restart: always
@@ -12,7 +12,7 @@ services:
     image: bearisoa/clarefi-frontend:latest
     networks:
       - default
-    container_name: frontend
+    container_name: clarefi-frontend
     ports:
       - "80:80"
     restart: always
