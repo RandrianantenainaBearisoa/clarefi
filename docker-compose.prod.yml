@@ -14,5 +14,5 @@ services:
       - default
     container_name: clarefi-frontend-n-proxy
     ports:
-      - "80:80"
+      - "8082:80"
     restart: always
