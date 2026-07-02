@@ -88,5 +88,9 @@ jobs:
             echo "No updates pushed"
           fi
   
-  # Deploy-on-server:
-  #   runs-on: vm-prod
+  Deploy-on-server:
+    runs-on: vm-prod
+    steps:
+      - name: Deployment script on server
+        run: |
+          pwd
