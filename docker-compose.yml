@@ -13,7 +13,7 @@ services:
     build:
       context: ./frontend
       tags:
-      - bearisoa/clarefi-frontend:1.0.8
+      - bearisoa/clarefi-frontend:1.0.9
       args:
       - VITE_API_URL=/api
     image: bearisoa/clarefi-frontend:latest
