@@ -84,10 +84,10 @@ jobs:
         if: ${{ success() }}
         run: |
           if [ -n "$(git status --porcelain)" ]; then
+            echo "to_update=1" >> "$GITHUB_OUTPUT"
             git add docker-compose.yml
             git commit -m "new Docker Image version"
             git push
-            echo "to_update=1" >> "$GITHUB_OUTPUT"
           else
             echo "No updates pushed"
             echo "to_update=0" >> "$GITHUB_OUTPUT"
