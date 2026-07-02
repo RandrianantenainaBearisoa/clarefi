@@ -6,6 +6,8 @@ on:
 jobs:
   Building-Images:
     runs-on: ubuntu-latest
+    outputs:
+      update_server_app: ${{ steps.git-push-update.outputs.to_update }}
     permissions:
       contents: write
     steps:
@@ -78,20 +80,27 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       
       - name: Git push docker compose update
+        id: git-push-update
         if: ${{ success() }}
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git add docker-compose.yml
             git commit -m "new Docker Image version"
             git push
+            echo "to_update=1" >> "$GITHUB_OUTPUT"
           else
             echo "No updates pushed"
+            echo "to_update=0" >> "$GITHUB_OUTPUT"
           fi
   
   Deploy-on-server:
     runs-on: vm-prod
+    needs: Building-Images
+    if: ${{ needs.Building-Images.update_server_app == 1 }}
     steps:
       - name: Deployment script on server
         run: |
-          cd $HOME
-          pwd
+          # cd $HOME/clarefi
+          # wget -O docker-compose.yml https://raw.githubusercontent.com/RandrianantenainaBearisoa/clarefi/refs/heads/main/docker-compose.prod.yml
+          # docker compose pull && docker compose up -d && docker image prune -f
+          echo "execution done"
