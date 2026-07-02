@@ -1,4 +1,4 @@
-name: Deploy full app
+name: Deploy updates (frontend/backend/compose)
 
 on:
   workflow_dispatch:

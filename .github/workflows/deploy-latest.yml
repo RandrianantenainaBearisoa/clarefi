@@ -1,0 +1,14 @@
+name: Deploy latest docker image of frontend and backend
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Deploy-latest:
+    runs-on: vm-prod
+    steps:
+      - name: Deployment script
+        run: |
+          cd $HOME/clarefi
+          wget -O docker-compose.yml https://raw.githubusercontent.com/RandrianantenainaBearisoa/clarefi/refs/heads/main/docker-compose.prod.yml
+          docker compose pull && docker compose up -d && docker image prune -f
