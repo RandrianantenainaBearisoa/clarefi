@@ -60,9 +60,6 @@ jobs:
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
           python update_versions.py --commit="$COMMIT_MSG" --part="backend"
           docker compose build backend --push
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       # updated : both
       - name: Run step if any file(s) in the backend AND frontend folder change
@@ -72,9 +69,6 @@ jobs:
           COMMIT_MSG=$(git log -1 --pretty=format:"%s")
           python update_versions.py --commit="$COMMIT_MSG"
           docker compose build --push
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       
       # update : docker-compose file
       - name: Github global config
@@ -82,9 +76,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       
       - name: Git push docker compose update
         if: ${{ success() }}
