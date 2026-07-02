@@ -95,7 +95,7 @@ jobs:
 
       - name: Git push docker compose update
         id: git-push-update
-        if: ${{ success() }}
+        if: ${{ success() && (steps.changed-files-frontend.outputs.any_changed == 'true' || steps.changed-files-backend.outputs.any_changed == 'true' || steps.changed-files-compose.outputs.any_changed == 'true')}}
         run: |
           if [ -n "$(git status --porcelain docker-compose.yml)" ]; then
             git add docker-compose.yml
