@@ -72,19 +72,20 @@ jobs:
       
       # update : docker-compose file
       - name: Github global config
-        if: steps.changed-files-frontend.outputs.any_changed == 'true' || steps.changed-files-backend.outputs.any_changed == 'true'
+        if: ${{ success() && steps.changed-files-frontend.outputs.any_changed == 'true' || steps.changed-files-backend.outputs.any_changed == 'true' }}
         run: |
           git config --global user.name="github-actions[bot]"
           git config --global user.email="41898282+github-actions[bot]@users.noreply.github.com"
       
       - name: Git push docker compose update
+        if: ${{ success() }}
         run: |
           if [-n "$(git status --porcelain)"]; then
             git add docker-compose.yml
             git commit -m "new Docker Image version"
             git push
           else
-            echo "No updates"
+            echo "No updates pushed"
           fi
   
   # Deploy-on-server:
