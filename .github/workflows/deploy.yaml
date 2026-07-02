@@ -96,7 +96,7 @@ jobs:
   Deploy-on-server:
     runs-on: vm-prod
     needs: Building-Images
-    if: ${{ needs.Building-Images.update_server_app == 1 }}
+    if: ${{ needs.Building-Images.update_server_app == '1' }}
     steps:
       - name: Deployment script on server
         run: |
