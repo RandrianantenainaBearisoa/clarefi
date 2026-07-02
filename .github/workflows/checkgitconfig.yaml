@@ -11,5 +11,4 @@ jobs:
 
       - name: display configs
         run: |
-          git config --local user.name
-          # git config --local user.email
+          git --version
