@@ -83,11 +83,12 @@ jobs:
         id: git-push-update
         if: ${{ success() }}
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "to_update=1" >> "$GITHUB_OUTPUT"
+          if [ -n "$(git status --porcelain docker-compose.yml)" ]; then
             git add docker-compose.yml
             git commit -m "new Docker Image version"
             git push
+
+            echo "to_update=1" >> "$GITHUB_OUTPUT"
           else
             echo "No updates pushed"
             echo "to_update=0" >> "$GITHUB_OUTPUT"
@@ -96,7 +97,7 @@ jobs:
   Deploy-on-server:
     runs-on: vm-prod
     needs: Building-Images
-    if: ${{ needs.Building-Images.update_server_app == '1' }}
+    if: ${{ needs.Building-Images.outputs.update_server_app == '1' }}
     steps:
       - name: Deployment script on server
         run: |
@@ -108,7 +109,7 @@ jobs:
   Test-on-server:
     runs-on: vm-prod
     needs: Building-Images
-    if: ${{ needs.Building-Images.update_server_app == '0' }}
+    if: ${{ needs.Building-Images.outputs.update_server_app == '0' }}
     steps:
       - name: Deployment script on server
         run: |
