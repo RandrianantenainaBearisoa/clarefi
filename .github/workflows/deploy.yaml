@@ -93,4 +93,5 @@ jobs:
     steps:
       - name: Deployment script on server
         run: |
+          cd $HOME
           pwd
