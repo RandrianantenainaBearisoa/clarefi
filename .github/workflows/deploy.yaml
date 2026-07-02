@@ -101,16 +101,6 @@ jobs:
     steps:
       - name: Deployment script on server
         run: |
-          # cd $HOME/clarefi
-          # wget -O docker-compose.yml https://raw.githubusercontent.com/RandrianantenainaBearisoa/clarefi/refs/heads/main/docker-compose.prod.yml
-          # docker compose pull && docker compose up -d && docker image prune -f
-          echo "updated"
-  
-  Test-on-server:
-    runs-on: vm-prod
-    needs: Building-Images
-    if: ${{ needs.Building-Images.outputs.update_server_app == '0' }}
-    steps:
-      - name: Deployment script on server
-        run: |
-          echo "no updates"
+          cd $HOME/clarefi
+          wget -O docker-compose.yml https://raw.githubusercontent.com/RandrianantenainaBearisoa/clarefi/refs/heads/main/docker-compose.prod.yml
+          docker compose pull && docker compose up -d && docker image prune -f
