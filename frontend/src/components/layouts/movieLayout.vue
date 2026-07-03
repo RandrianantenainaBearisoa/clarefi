@@ -50,7 +50,7 @@ const movies = [
         "Writer": "Jonathan Nolan, Christopher Nolan",
         "Actors": "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
         "Plot": "Quand la Terre devient inhabitable, une équipe d'explorateurs traverse un trou de ver dans l'espace pour assurer la survie de l'humanité.",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWYwXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+        "Poster": "https://m.media-amazon.com/images/M/MV5BOGZhOGMwNTMtNDIyMS00MGI2LWJkYmYtMjA1YjQwNTBmODZlXkEyXkFqcGc@._V1_FMjpg_UY434_.jpg"
     },
     {
         "Title": "Pulp Fiction",
@@ -59,7 +59,7 @@ const movies = [
         "Writer": "Quentin Tarantino, Roger Avary",
         "Actors": "John Travolta, Uma Thurman, Samuel L. Jackson",
         "Plot": "Les vies de deux tueurs à gages, d'un boxeur, d'un gangster et sa femme, et d'une paire de braqueurs de restaurant s'entrelacent en quatre histoires de violence et de rédemption.",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDFkNC00ODYyLTkxNjAtODExMWFjNDkwYzhkXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+        "Poster": "https://m.media-amazon.com/images/M/MV5BOWM4Nzg5YjgtOGJmNi00NDIyLThjYjAtMDI0ZDFkYzdjMDM5XkEyXkFqcGc@._V1_FMjpg_UY337_.jpg"
     },
     {
         "Title": "Spider-Man : New Generation",
@@ -77,7 +77,7 @@ const movies = [
         "Writer": "Daniel Kwan, Daniel Scheinert",
         "Actors": "Michelle Yeoh, Stephanie Hsu, Ke Huy Quan",
         "Plot": "Une immigrée chinoise d'âge moyen est entraînée dans une aventure insensée dans laquelle elle seule peut sauver l'existence en explorant d'autres univers et en se connectant aux vies qu'elle aurait pu vivre.",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyM2UtMjI2ZDRjODY2M2NjXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+        "Poster": "https://m.media-amazon.com/images/M/MV5BNjZjYjZjZmItYmEzMS00ZWRjLWI3YmMtMDc1MjU1ZjZmYWQxXkEyXkFqcGc@._V1_FMjpg_UY337_.jpg"
     },
     {
         "Title": "Matrix",
@@ -86,7 +86,7 @@ const movies = [
         "Writer": "Lana Wachowski, Lilly Wachowski",
         "Actors": "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
         "Plot": "Quand une belle étrangère attire le hacker informatique Neo dans un monde souterrain redoutable, il découvre la vérité choquante - la vie qu'il connaît est la tromperie élaborée d'une cyber-intelligence malveillante.",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BN2NmY2VhMTQtMDYyOS00YzQ0LWI2Y2QtOTU5MTYyNjA1NzcxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+        "Poster": "https://m.media-amazon.com/images/M/MV5BNDlkMmZlNTktNDgwZC00MDA4LWE2MWUtNjBhMTY1ODUwMDBkXkEyXkFqcGc@._V1_.jpg"
     },
     {
         "Title": "Parasite",
@@ -95,7 +95,7 @@ const movies = [
         "Writer": "Bong Joon Ho, Jin Won Han",
         "Actors": "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
         "Plot": "La cupidité et la discrimination de classe menacent la nouvelle relation symbiotique entre la riche famille Park et le clan Kim démuni.",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwMWQ4ODhjXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+        "Poster": "https://m.media-amazon.com/images/M/MV5BYjk1Y2U4MjQtY2ZiNS00OWQyLWI3MmYtZWUwNmRjYWRiNWNhXkEyXkFqcGc@._V1_FMjpg_UY474_.jpg"
     },
     {
         "Title": "Dune : Deuxième Partie",
@@ -104,7 +104,7 @@ const movies = [
         "Writer": "Denis Villeneuve, Jon Spaihts, Frank Herbert",
         "Actors": "Timothée Chalamet, Zendaya, Rebecca Ferguson",
         "Plot": "Paul Atreides s'unit avec Chani et les Fremen tout en cherchant sa vengeance contre les conspirateurs qui ont détruit sa famille.",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BODdjMjM3NGQtZDA5OC00NGEyLWIyZDAtZDg0NThjODQ0Nzk3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+        "Poster": "https://m.media-amazon.com/images/M/MV5BZDcwNzg2ZTEtYzBkZC00NWRmLTg2ZWEtODljZmY2MjVkZGYwXkEyXkFqcGc@._V1_FMjpg_UY711_.jpg"
     }
 ];
 
