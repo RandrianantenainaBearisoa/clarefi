@@ -19,5 +19,5 @@ services:
     image: bearisoa/clarefi-frontend:latest
     container_name: clarefi-frontend
     ports:
-    - 80:80
+    - 8082:80
     restart: always
