@@ -3,7 +3,7 @@ services:
     build:
       context: ./backend
       tags:
-      - bearisoa/clarefi-backend:1.1.11
+      - bearisoa/clarefi-backend:1.1.12
     image: bearisoa/clarefi-backend:latest
     container_name: clarefi-backend
     expose:
@@ -13,7 +13,7 @@ services:
     build:
       context: ./frontend
       tags:
-      - bearisoa/clarefi-frontend:1.0.12
+      - bearisoa/clarefi-frontend:1.0.13
       args:
       - VITE_API_URL=/api
     image: bearisoa/clarefi-frontend:latest
