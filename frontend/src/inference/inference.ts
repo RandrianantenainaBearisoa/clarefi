@@ -11,7 +11,7 @@ export class Inference {
 
     public static async initialize(): Promise<Inference> {
         try {
-            const session = await ort.InferenceSession.create('src/assets/model_artifact/current_model.onnx');
+            const session = await ort.InferenceSession.create('/assets/model_artifact/current_model.onnx');
             return new Inference(session);
         } catch (error) {
             console.error("Error when loading the onnx model :", error);
