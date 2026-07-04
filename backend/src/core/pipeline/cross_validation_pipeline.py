@@ -1,8 +1,6 @@
-from datasets import Dataset, Column
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.pipeline import make_pipeline, Pipeline
+from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
 import traceback
 
 def custom_pipeline(transformers:list = [], regressor:str = 'logisticregression', verbose:bool = False):
