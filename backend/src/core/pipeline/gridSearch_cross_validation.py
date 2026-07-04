@@ -8,6 +8,7 @@ import datetime
 import traceback
 import yaml
 import joblib
+from collections import deque
 
 def store_experiment(gridCV:dict, gridCV_args:dict, pipeline:dict, param_grid:dict, dataset_proportion:float, report:dict):
     params = {param: str(param_grid[param]) for param in param_grid}
@@ -108,5 +109,45 @@ def run_gs_cross_validation():
         model_name = store_experiment(gridCV=gridCV, gridCV_args=configurations["GridSearchCV"], pipeline=pipeline, param_grid=param_grid, dataset_proportion=configurations["dataset_proportion"], report=report)
         save_artefact(best_pipeline=gridCV.best_estimator_, model_name=model_name)
 
+        show_Last_experiment()
+
     except Exception:
         traceback.print_exc()
+
+def get_experiments_List():
+    experiment_list_path = "config/experiment_result.yaml"
+    return load_config_file(experiment_list_path)
+
+def show_single_experiment(expe:dict):
+    print(f"- Model_id:{expe['model']}")
+    print(f"  Best's score:{expe['info']['best_score']} ({expe['info']['dataset_proportion'] * 100 }% of dataset used for Grid Search Cross validation)", f"\n  pipeline:{expe['pipeline']}", f"\n  Best's params:{expe['info']['best_params']}\n")
+
+def show_experiments(experiment_list:list = get_experiments_List()):
+    for expe in experiment_list:
+        show_single_experiment(expe=expe)
+
+def extract_first_experiment(experiment_list: list):
+    experiment_queue = deque(experiment_list)
+    first_element = experiment_queue.popleft()
+    return first_element, list(experiment_queue)
+
+def expose_first_experiment_element(experiment_list: list, first_msg: str, others_msg: str):
+    UNDERLINE = '\033[4m'
+    RESET = '\033[0m'
+    last_experiment, experiment_list = extract_first_experiment(experiment_list=experiment_list)
+    print(f"\n{UNDERLINE}{first_msg}:\n{RESET}")
+    show_single_experiment(last_experiment)
+    print(f"{UNDERLINE}{others_msg}:\n{RESET}")
+    show_experiments(experiment_list=experiment_list)
+
+def show_Last_experiment():
+    experiment_list = get_experiments_List()
+    expose_first_experiment_element(experiment_list=experiment_list, first_msg="The last experiment's result", others_msg="Previous experiments")
+
+def order_experiments_by_score(experiment_list:list):
+    experiment_list.sort(key=lambda expe: expe['info']['best_score'], reverse=True)
+    return experiment_list
+
+def show_best_experiment():
+    experiment_list = order_experiments_by_score(get_experiments_List())
+    expose_first_experiment_element(experiment_list=experiment_list, first_msg="Model with the best accuracy", others_msg="Other models")
