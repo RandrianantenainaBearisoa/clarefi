@@ -39,6 +39,7 @@ jobs:
             backend/config/gridSearch_config.yaml
             backend/data/**
             backend/explorations/**
+            backend/src/core/pipeline/**
             backend/README.md
 
       - name: Get docker-compose file changed
