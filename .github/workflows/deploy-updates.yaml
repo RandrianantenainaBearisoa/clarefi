@@ -112,46 +112,48 @@ jobs:
             echo "to_update=0" >> "$GITHUB_OUTPUT"
           fi
       
-      - name: Check if new model on prod
-        if: ${{ success() }}
-        id: check-new-model-prod
-        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
-        with:
-          files: backend/config/model_config.yaml
+      # - name: Check if new model on prod
+      #   if: ${{ success() }}
+      #   id: check-new-model-prod
+      #   uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
+      #   with:
+      #     files: backend/config/model_config.yaml
       
-      - name: Install uv
-        if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-        with:
-          version: "0.10.8"
+      # - name: Install uv
+      #   if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
+      #   uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      #   with:
+      #     version: "0.10.8"
       
       - name: Make an onnx version of the model
-        if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
+        # if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
         run: |
-          cd backend
-          uv sync --frozen
-          . .venv/bin/activate
-          python launch_joblib_to_onnx.py
+          # cd backend
+          # uv sync --frozen
+          # . .venv/bin/activate
+          # python launch_joblib_to_onnx.py
+          docker image ls
+
       
-      - name: Upload new model to Demo
-        id: git-new-model-to-demo
-        if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: file-to-upload
-          path: backend/models/onnx/current_model.onnx
+      # - name: Upload new model to Demo
+      #   id: git-new-model-to-demo
+      #   if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: file-to-upload
+      #     path: backend/models/onnx/current_model.onnx
       
-      - name: Send signal to run Demo workflow
-        if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
-        uses: actions/github-script@v9
-        with:
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner, 
-              repo: context.repo.repo,
-              workflow_id: 'update_model.yml',
-              ref: 'frontend_demo'
-            });
+      # - name: Send signal to run Demo workflow
+      #   if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
+      #   uses: actions/github-script@v9
+      #   with:
+      #     script: |
+      #       await github.rest.actions.createWorkflowDispatch({
+      #         owner: context.repo.owner, 
+      #         repo: context.repo.repo,
+      #         workflow_id: 'update_model.yml',
+      #         ref: 'frontend_demo'
+      #       });
 
   Deploy-on-server:
     runs-on: vm-prod
