@@ -13,7 +13,7 @@ jobs:
       - name: Checkout in the demo branch
         uses: actions/checkout@v4
         with:
-          ref: 'frontend_demo'
+          ref: 'frontend_demo_dev'
           fetch-depth: 0
 
       - name: Download new model
@@ -29,7 +29,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add imports/fichiers_recus/
             git commit -m "feat: new model on prod"
-            git push origin frontend_demo
+            git push origin frontend_demo_dev
           else
             echo "No changes, no push"
           fi
