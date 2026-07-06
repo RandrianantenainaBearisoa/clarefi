@@ -108,6 +108,31 @@ jobs:
             echo "No updates pushed"
             echo "to_update=0" >> "$GITHUB_OUTPUT"
           fi
+      
+      - name: Check if new model on prod
+        id: check-new-model-prod
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
+        with:
+          files: backend/config/model_config.yaml
+      
+      - name: Push new model to Demo
+        id: git-new-model-to-demo
+        if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mon-fichier-transfere
+          path: backend/models/onnx/current_model.onnx
+      
+      - name: Send signal to run Demo workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner, 
+              repo: context.repo.repo,
+              workflow_id: 'update_model.yml',
+              ref: 'frontend_demo'
+            });
 
   Deploy-on-server:
     runs-on: vm-prod
