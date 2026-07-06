@@ -95,3 +95,6 @@ def get_current_model(idOnly: bool = False):
     if idOnly:
         return extract_model_id(current_model_path)
     return current_model_path
+
+def get_onnx_store():
+    return load_config_file("config/model_config.yaml")["onnx_store"]
