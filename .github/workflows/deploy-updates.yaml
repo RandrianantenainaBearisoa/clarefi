@@ -130,6 +130,7 @@ jobs:
         run: |
           cd backend
           . .venv/bin/activate
+          echo $VIRTUAL_ENV
       
       # - name: Check if new model on prod
       #   id: check-new-model-prod
