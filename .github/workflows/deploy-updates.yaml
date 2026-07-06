@@ -115,7 +115,7 @@ jobs:
       - name: Make an onnx version of the model
         if: ${{ success() && (steps.changed-files-frontend.outputs.any_changed == 'true' || steps.changed-files-backend.outputs.any_changed == 'true' || steps.changed-files-compose.outputs.any_changed == 'true')}}
         run: |
-          python launch_joblib_to_onnx.py
+            . backend/.venv/bin/activate && python backend/launch_joblib_to_onnx.py
       
       - name: Check if new model on prod
         id: check-new-model-prod
