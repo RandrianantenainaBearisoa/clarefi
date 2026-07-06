@@ -130,7 +130,7 @@ jobs:
         run: |
           cd backend
           docker create --name temp_img bearisoa/clarefi-backend
-          docker cp temp_img:/app/models/onnx ./models/onnx
+          docker cp temp_img:/app/models/onnx/ ./models/onnx
           docker rm temp_img
           tree
       
