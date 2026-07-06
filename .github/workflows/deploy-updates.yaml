@@ -115,12 +115,12 @@ jobs:
         with:
           files: backend/config/model_config.yaml
       
-      - name: Push new model to Demo
+      - name: Upload new model to Demo
         id: git-new-model-to-demo
         if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: mon-fichier-transfere
+          name: file-to-upload
           path: backend/models/onnx/current_model.onnx
       
       - name: Send signal to run Demo workflow
