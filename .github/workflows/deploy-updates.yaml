@@ -128,11 +128,16 @@ jobs:
       - name: Make an onnx version of the model
         # if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
         run: |
-          # cd backend
-          # uv sync --frozen
-          # . .venv/bin/activate
+          cd backend
+          mkdir models/onnx
+          uv sync --frozen
+          . .venv/bin/activate
+          docker create --name temp_img bearisoa/clarefi-backend
+          docker cp temp_img:/app ./app
+          docker rm temp_img
+          tree
           # python launch_joblib_to_onnx.py
-          docker image ls
+
 
       
       # - name: Upload new model to Demo
