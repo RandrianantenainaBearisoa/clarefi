@@ -118,7 +118,9 @@ jobs:
           pwd
           ls
           cd backend
+          uv sync --frozen
           ls
+          . .venv/bin/activate
       
       # - name: Check if new model on prod
       #   id: check-new-model-prod
