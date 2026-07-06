@@ -142,7 +142,10 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'update_model.yml',
-              ref: 'frontend_demo_dev'
+              ref: 'frontend_demo_dev',
+              inputs: {
+                uploader_run_id: context.runId.toString()
+              }
             });
 
   Deploy-on-server:
