@@ -35,7 +35,11 @@ jobs:
         id: changed-files-backend
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
-          files: backend/**
+          files: |
+            prod_model:
+              - backend/model_config.yaml
+            others:
+              - backend/**
           files_ignore: |
             backend/config/data_config.yaml
             backend/config/experiment_result.yaml
@@ -126,7 +130,7 @@ jobs:
         #   version: "0.10.8"
       
       - name: Get the onnx version of the model
-        # if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
+        if: ${{ success() && steps.changed-files-backend.outputs.prod_model_any_changed == 'true'}}
         run: |
           cd backend
           docker create --name temp_img bearisoa/clarefi-backend
