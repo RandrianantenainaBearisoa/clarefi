@@ -132,6 +132,7 @@ jobs:
           docker create --name temp_img bearisoa/clarefi-backend
           docker cp temp_img:/app/models/onnx ./models/onnx
           docker rm temp_img
+          tree
       
       # - name: Upload new model to Demo
       #   id: git-new-model-to-demo
