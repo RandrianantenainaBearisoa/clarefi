@@ -133,15 +133,15 @@ jobs:
           path: backend/models/onnx/current_model.onnx
       
       - name: Send signal to run Demo workflow
-        if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true' }}
+        if: ${{ success() && steps.changed-files-backend.outputs.prod_model_any_changed == 'true'}}
         uses: actions/github-script@v9
         with:
           script: |
             await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner, 
+              owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'update_model.yml',
-              ref: 'frontend_demo'
+              ref: 'frontend_demo_dev'
             });
 
   Deploy-on-server:
