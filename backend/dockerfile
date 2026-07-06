@@ -24,4 +24,4 @@ RUN uv sync --frozen --no-cache
 
 COPY --from=training-stage /app/app .
 
-CMD [ "uv", "run", "gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "src.api.main:app", "--bind", "0.0.0.0:8000" ]
+CMD [ "uv", "run", "gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "src.api.main:app", "--bind", "0.0.0.0:8000" ] 
