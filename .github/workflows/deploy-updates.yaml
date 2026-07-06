@@ -37,9 +37,9 @@ jobs:
         with:
           files_yaml: |
             prod_model:
-              - backend/model_config.yaml
+              - 'backend/model_config.yaml'
             others:
-              - backend/**
+              - 'backend/**'
           files_ignore: |
             backend/config/data_config.yaml
             backend/config/experiment_result.yaml
