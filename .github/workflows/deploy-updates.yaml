@@ -124,7 +124,12 @@ jobs:
           uv sync --frozen
           . .venv/bin/activate
           echo $VIRTUAL_ENV
-          ls
+          # python launch_joblib_to_onnx.py
+      
+      - name: Test is venv active
+        run: |
+          cd backend
+          . .venv/bin/activate
       
       # - name: Check if new model on prod
       #   id: check-new-model-prod
