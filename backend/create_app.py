@@ -11,7 +11,7 @@ directory_list = {
     "config": ["model_config.yaml"],  # copy specific files
     "models/": [],  # copy all directory content
     "src/api/": [],
-    "src/core/inference": [],
+    "src/core/inference": [], 
     "src/core/utils": [],
 }
 
