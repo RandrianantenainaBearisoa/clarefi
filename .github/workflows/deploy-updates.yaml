@@ -18,6 +18,7 @@ jobs:
       update_server_app: ${{ steps.git-push-update.outputs.to_update }}
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
         with:
