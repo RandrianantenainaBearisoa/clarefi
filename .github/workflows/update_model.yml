@@ -10,29 +10,27 @@ jobs:
       contents: write
       actions: read
     steps:
-      - name: toto
-        run: echo "test"
-      # - name: Checkout in the demo branch
-      #   uses: actions/checkout@v4
-      #   with:
-      #     ref: 'frontend_demo_dev'
-      #     fetch-depth: 0
+      - name: Checkout in the demo branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'frontend_demo_dev'
+          fetch-depth: 0
 
-      # - name: Download new model
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: upload-onnx-version
-      #     run_id: ${{ github.event.workflow_run.id }}
-      #     path: frontend/public/assets/model_artifact/
+      - name: Download new model
+        uses: actions/download-artifact@v4
+        with:
+          name: upload-onnx-version
+          run_id: ${{ github.event.workflow_run.id }}
+          path: frontend/public/assets/model_artifact/
       
-      # - name: Push new model
-      #   run: |
-      #     git config --global user.name "github-actions[bot]"
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     if [ -n "$(git status --porcelain)" ]; then
-      #       git add imports/fichiers_recus/
-      #       git commit -m "feat: new model on prod"
-      #       git push origin frontend_demo_dev
-      #     else
-      #       echo "No changes, no push"
-      #     fi
+      - name: Push new model
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add imports/fichiers_recus/
+            git commit -m "feat: new model on prod"
+            git push origin frontend_demo_dev
+          else
+            echo "No changes, no push"
+          fi
