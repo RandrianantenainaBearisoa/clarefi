@@ -117,6 +117,8 @@ jobs:
         run: |
           pwd
           ls
+          cd backend
+          ls
       
       # - name: Check if new model on prod
       #   id: check-new-model-prod
