@@ -110,6 +110,11 @@ jobs:
             echo "to_update=0" >> "$GITHUB_OUTPUT"
           fi
       
+      - name: Make an onnx version of the model
+        if: ${{ success() && (steps.changed-files-frontend.outputs.any_changed == 'true' || steps.changed-files-backend.outputs.any_changed == 'true' || steps.changed-files-compose.outputs.any_changed == 'true')}}
+        run: |
+          . .venv/bin/activate && python launch_joblib_to_onnx.py
+      
       - name: Check if new model on prod
         id: check-new-model-prod
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
