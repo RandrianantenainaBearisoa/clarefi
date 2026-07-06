@@ -22,10 +22,10 @@ jobs:
           fetch-depth: 0
 
       - name: Download new model
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: upload-onnx-version
-          run_id: ${{ inputs.uploader_run_id }}
+          run-id: ${{ inputs.uploader_run_id }}
           path: frontend/public/assets/model_artifact/
       
       - name: Push new model
