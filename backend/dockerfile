@@ -10,7 +10,7 @@ RUN uv sync --frozen --no-cache
 
 COPY . .
 
-RUN . .venv/bin/activate && python launch_data_pipeline.py && python train_prod_model.py && python create_app.py && python launch_joblib_to_onnx.py
+RUN . .venv/bin/activate && python launch_data_pipeline.py && python train_prod_model.py && python launch_joblib_to_onnx.py && python create_app.py
 
 # stage 2 : copy all inference files/directories in to make a new prod image
 FROM python:3.12.3-slim as deployment-stage
