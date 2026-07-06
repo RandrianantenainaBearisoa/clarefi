@@ -3,7 +3,7 @@ services:
     build:
       context: ./backend
       tags:
-      - bearisoa/clarefi-backend:1.2.34
+      - bearisoa/clarefi-backend:1.2.35
     image: bearisoa/clarefi-backend:latest
     container_name: clarefi-backend
     expose:
