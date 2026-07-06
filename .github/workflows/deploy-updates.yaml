@@ -129,7 +129,6 @@ jobs:
         # if: ${{ success() && steps.check-new-model-prod.outputs.any_changed == 'true'}}
         run: |
           cd backend
-          mkdir models/onnx
           uv sync --frozen
           . .venv/bin/activate
           docker create --name temp_img bearisoa/clarefi-backend
