@@ -27,7 +27,8 @@ jobs:
           name: onnx-version
           run-id: ${{ inputs.uploader_run_id }}
           path: frontend/public/assets/model_artifact/
-      
+          github-token: ${{ secrets.GH_TOKEN }}
+
       - name: Push new model
         run: |
           git config --global user.name "github-actions[bot]"
