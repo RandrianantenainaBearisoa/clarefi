@@ -130,7 +130,7 @@ jobs:
         if: ${{ success() && steps.changed-files-backend.outputs.prod_model_any_changed == 'true'}}
         uses: actions/upload-artifact@v7
         with:
-          name: upload-onnx-version
+          name: onnx-version
           path: backend/models/onnx/current_model.onnx
       
       - name: Send signal to run Demo workflow
