@@ -24,7 +24,7 @@ jobs:
       - name: Download new model
         uses: actions/download-artifact@v8
         with:
-          name: upload-onnx-version
+          name: onnx-version
           run-id: ${{ inputs.uploader_run_id }}
           path: frontend/public/assets/model_artifact/
       
