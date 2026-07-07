@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
-            git add imports/fichiers_recus/
+            git add frontend/public/assets/model_artifact/current_model.onnx
             git commit -m "feat: new model on prod"
             git push origin frontend_demo_dev
           else
