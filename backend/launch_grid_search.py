@@ -1,3 +1,0 @@
-from src.core.pipeline.gridSearch_cross_validation import run_gs_cross_validation
-
-run_gs_cross_validation()
