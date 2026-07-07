@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      # - main
-      - grid_search
+      - main
+      # - grid_search
     paths:
       - "backend/**"
       - "frontend/**"
