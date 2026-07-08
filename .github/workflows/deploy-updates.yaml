@@ -65,7 +65,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # updated : frontend only
-      - name: Run step if any file(s) in ONLY the frontend folder change
+      - name: Only the frontend is updated.
         if: steps.changed-files-frontend.outputs.any_changed == 'true' && steps.changed-files-backend.outputs.any_changed == 'false' && steps.changed-files-compose.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-frontend.outputs.all_changed_files }}
@@ -76,7 +76,7 @@ jobs:
           docker compose build frontend --push
 
       # updated : backend only
-      - name: Run step if any file(s) in ONLY the backend folder change
+      - name: Only the backend is updated.
         if: steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'false' && steps.changed-files-compose.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-backend.outputs.all_changed_files }}
@@ -87,7 +87,7 @@ jobs:
           docker compose build backend --push
 
       # updated : both
-      - name: Run step if any file(s) in the backend AND frontend folder change
+      - name: The backend AND the frontend are both updated.
         if: (steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'true') || steps.changed-files-compose.outputs.any_changed == 'true'
         run: |
           echo "Updating Backend && Frontend images ..."
