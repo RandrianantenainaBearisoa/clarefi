@@ -1,0 +1,21 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      tags:
+      - clarefi-backend:dev
+    container_name: clarefi-backend
+    expose:
+    - '8000'
+    restart: always
+  frontend:
+    build:
+      context: ./frontend
+      tags:
+      - clarefi-frontend:dev
+      args:
+      - VITE_API_URL=/api
+    container_name: clarefi-frontend
+    ports:
+    - 8082:80
+    restart: always
