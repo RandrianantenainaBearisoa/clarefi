@@ -34,6 +34,7 @@ request_latency = Histogram('request_latency', 'Duration of request Processing')
 @app.post("/predict")
 @request_latency.time()
 async def online_prediction(item: Item):
+
     prediction, prediction_probability, oov_rate = inference_service.predict(item.input)
 
     confidence = max(prediction_probability[0][0], prediction_probability[0][1])
