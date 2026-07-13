@@ -3,6 +3,7 @@ services:
     image: bearisoa/clarefi-backend:latest
     networks:
       - default
+      - prometheus_monitoring
     container_name: clarefi-backend
     expose:
       - "8000"
@@ -12,6 +13,7 @@ services:
     image: bearisoa/clarefi-frontend:latest
     networks:
       - default
+      - prometheus_monitoring
     container_name: clarefi-frontend-n-proxy
     ports:
       - "8082:80"
