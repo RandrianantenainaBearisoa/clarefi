@@ -21,8 +21,8 @@ jobs:
       actions: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: 'grid_search'
+        # with:
+        #   ref: 'grid_search'
 
       - name: Get changed files in the frontend folder
         id: changed-files-frontend
