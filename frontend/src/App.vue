@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { loadingPage } from './views';
 import { useLoading } from './stores/useLoader';
 
-const loader= useLoading()
+const loader = useLoading()
 </script>
 
 <template>
