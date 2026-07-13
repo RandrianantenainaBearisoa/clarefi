@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      # - grid_search
     paths:
       - "backend/**"
       - "frontend/**"
@@ -17,8 +18,11 @@ jobs:
       update_server_app: ${{ steps.git-push-update.outputs.to_update }}
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: 'grid_search'
 
       - name: Get changed files in the frontend folder
         id: changed-files-frontend
@@ -32,7 +36,11 @@ jobs:
         id: changed-files-backend
         uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
         with:
-          files: backend/**
+          files_yaml: |
+            prod_model:
+              - 'backend/config/model_config.yaml'
+            others:
+              - 'backend/**'
           files_ignore: |
             backend/config/data_config.yaml
             backend/config/experiment_result.yaml
@@ -57,7 +65,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # updated : frontend only
-      - name: Run step if any file(s) in ONLY the frontend folder change
+      - name: Only the frontend is updated.
         if: steps.changed-files-frontend.outputs.any_changed == 'true' && steps.changed-files-backend.outputs.any_changed == 'false' && steps.changed-files-compose.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-frontend.outputs.all_changed_files }}
@@ -68,7 +76,7 @@ jobs:
           docker compose build frontend --push
 
       # updated : backend only
-      - name: Run step if any file(s) in ONLY the backend folder change
+      - name: Only the backend is updated.
         if: steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'false' && steps.changed-files-compose.outputs.any_changed == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-backend.outputs.all_changed_files }}
@@ -79,7 +87,7 @@ jobs:
           docker compose build backend --push
 
       # updated : both
-      - name: Run step if any file(s) in the backend AND frontend folder change
+      - name: The backend AND the frontend are both updated.
         if: (steps.changed-files-backend.outputs.any_changed == 'true' && steps.changed-files-frontend.outputs.any_changed == 'true') || steps.changed-files-compose.outputs.any_changed == 'true'
         run: |
           echo "Updating Backend && Frontend images ..."
@@ -108,6 +116,37 @@ jobs:
             echo "No updates pushed"
             echo "to_update=0" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Get the onnx version of the model
+        if: ${{ success() && steps.changed-files-backend.outputs.prod_model_any_changed == 'true'}}
+        run: |
+          cd backend
+          docker create --name temp_img bearisoa/clarefi-backend
+          docker cp temp_img:/app/models/onnx/current_model.onnx ./models/onnx
+          docker rm temp_img
+      
+      - name: Upload new model to Demo
+        id: git-new-model-to-demo
+        if: ${{ success() && steps.changed-files-backend.outputs.prod_model_any_changed == 'true'}}
+        uses: actions/upload-artifact@v7
+        with:
+          name: onnx-version
+          path: backend/models/onnx/current_model.onnx
+      
+      - name: Send signal to run Demo workflow
+        if: ${{ success() && steps.changed-files-backend.outputs.prod_model_any_changed == 'true'}}
+        uses: actions/github-script@v9
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'update_model.yml',
+              ref: 'frontend_demo_dev',
+              inputs: {
+                uploader_run_id: context.runId.toString()
+              }
+            });
 
   Deploy-on-server:
     runs-on: vm-prod

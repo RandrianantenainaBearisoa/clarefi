@@ -5,6 +5,7 @@ import random
 import string
 import inquirer
 import ast
+import re
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -76,8 +77,10 @@ def generate_random_string(length:int = 10):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choices(characters, k=length))
 
-def check_file_presence(dir_path:str, filename:str):
+def check_file_presence(dir_path:str, filename:str = ""):
     file_path = Path(f"{dir_path}/{filename}")
+    if not filename:
+        file_path = Path(f"{dir_path}")
     return file_path.is_file()
 
 def is_string_a_tuple(test_string):
@@ -95,3 +98,13 @@ def get_current_model(idOnly: bool = False):
     if idOnly:
         return extract_model_id(current_model_path)
     return current_model_path
+
+def get_onnx_store():
+    return load_config_file("config/model_config.yaml")["onnx_store"]
+
+def get_words_number(sentence: str|list[str]):
+    if isinstance(sentence, list):
+        sentence = " ".join(sentence)
+    word_list = re.split(r'\W+', sentence) 
+    word_list = [word for word in word_list if word]
+    return len(word_list)

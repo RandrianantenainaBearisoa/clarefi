@@ -1,2 +1,3 @@
 artifact_store: models/joblibs/
+onnx_store: models/onnx/
 model_on_prod: models/joblibs/model_WkERif3d6I.joblib
