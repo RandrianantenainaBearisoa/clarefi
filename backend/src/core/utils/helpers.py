@@ -5,6 +5,7 @@ import random
 import string
 import inquirer
 import ast
+import re
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -100,3 +101,10 @@ def get_current_model(idOnly: bool = False):
 
 def get_onnx_store():
     return load_config_file("config/model_config.yaml")["onnx_store"]
+
+def get_words_number(sentence: str|list[str]):
+    if isinstance(sentence, list):
+        sentence = " ".join(sentence)
+    word_list = re.split(r'\W+', sentence) 
+    word_list = [word for word in word_list if word]
+    return len(word_list)
