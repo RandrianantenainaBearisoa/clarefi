@@ -102,9 +102,18 @@ def get_current_model(idOnly: bool = False):
 def get_onnx_store():
     return load_config_file("config/model_config.yaml")["onnx_store"]
 
-def get_words_number(sentence: str|list[str]):
+def list_to_sentence(sentence: list):
     if isinstance(sentence, list):
         sentence = " ".join(sentence)
-    word_list = re.split(r'\W+', sentence) 
+    return sentence
+
+def get_word_list(sentence: str | list):
+    sentence = list_to_sentence(sentence=sentence)
+    word_list = re.split(r'\W+', sentence)
     word_list = [word for word in word_list if word]
+    return word_list
+
+def get_words_number(sentence: str|list[str]):
+    sentence = list_to_sentence(sentence=sentence)
+    word_list = get_word_list(sentence=sentence)
     return len(word_list)

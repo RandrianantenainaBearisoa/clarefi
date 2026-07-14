@@ -1,5 +1,5 @@
 import joblib
-from src.core.utils.helpers import get_current_model, get_words_number
+from src.core.utils.helpers import get_current_model, get_words_number, get_word_list
 
 class Inference:
 
@@ -24,8 +24,8 @@ class Inference:
     def out_of_vocab_rate(self, input:str|list):
         if not input:
             return 0.0
-
-        oov_nb = sum(1 for word in input if word not in self.vocab_set)
+        words_list = get_word_list(sentence=input)
+        oov_nb = sum(1 for word in words_list if word not in self.vocab_set)
         words_number = get_words_number(input)
 
         return (oov_nb / words_number) * 100
