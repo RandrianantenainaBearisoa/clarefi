@@ -6,8 +6,8 @@ class Inference:
     def __init__(self):
         self.pipeline = joblib.load(get_current_model())
 
-        vectorizer = self.pipeline.named_steps["countvectorizer"]
-        vocab = vectorizer.get_feature_names_out()
+        self.vectorizer = self.pipeline.named_steps["countvectorizer"]
+        vocab = self.vectorizer.get_feature_names_out()
         
         self.vocab_set = set(vocab)
 
@@ -21,11 +21,28 @@ class Inference:
 
         return prediction.tolist(), prediction_probability, oov_rate
     
-    def out_of_vocab_rate(self, input:str|list):
-        if not input:
-            return 0.0
-        words_list = get_word_list(sentence=input)
-        oov_nb = sum(1 for word in words_list if word not in self.vocab_set)
-        words_number = get_words_number(input)
+    # def out_of_vocab_rate(self, input:str|list):
+    #     if not input:
+    #         return 0.0
+    #     words_list = get_word_list(sentence=input)
+    #     oov_nb = sum(1 for word in words_list if word not in self.vocab_set)
+    #     words_number = get_words_number(input)
 
-        return (oov_nb / words_number) * 100
+    #     return (oov_nb / words_number) * 100
+    
+    def out_of_vocab_rate(self, input:str|list):
+        if isinstance(input, str):
+            input = [input]
+        
+        tokens_count = 0
+        oov_count = 0
+
+        for text in input:
+            tokens_list = self.vectorizer.build_tokenizer()(text)
+            tokens_count += len(tokens_list)
+            
+            for token in tokens_list:
+                if token not in self.vocab_set:
+                    oov_count += 1
+        
+        return (oov_count / tokens_count) * 100 if tokens_count else 0.0
